@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roudz Burger - Smash & Wrap</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Fredoka', sans-serif;
+            color: #2d2d2d;
+        }
+
+        .hero-section {
+            background: linear-gradient(135deg, #FF6B35 0%, #F7931E 50%, #FDB833 100%);
+            padding: 60px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 400px;
+            height: 400px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            animation: slideDown 0.8s ease-out;
+        }
+
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(48px, 8vw, 72px);
+            color: white;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            letter-spacing: -1px;
+        }
+
+        .hero-subtitle {
+            font-size: 18px;
+            color: rgba(255,255,255,0.95);
+            margin-bottom: 30px;
+            font-weight: 400;
+            letter-spacing: 2px;
+        }
+
+        .tagline {
+            font-size: 14px;
+            color: rgba(255,255,255,0.9);
+            font-weight: 500;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .menu-container {
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 0 20px;
+            background: linear-gradient(to bottom, #faf8f6 0%, #ffffff 100%);
+        }
+
+        .menu-section {
+            margin-bottom: 20px;
+            border-radius: 12px;
+            overflow: hidden;
+            background: white;
+            box-shadow: 0 4px 15px rgba(255, 107, 53, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .menu-section:hover {
+            box-shadow: 0 8px 25px rgba(255, 107, 53, 0.15);
+        }
+
+        .section-header {
+            background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            user-select: none;
+            transition: all 0.3s ease;
+        }
+
+        .section-header:hover {
+            padding-left: 24px;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .section-subtitle {
+            font-size: 12px;
+            color: rgba(255,255,255,0.8);
+            margin-top: 4px;
+            font-weight: 400;
+        }
+
+        .chevron {
+            transition: transform 0.3s ease;
+            color: white;
+            width: 24px;
+            height: 24px;
+        }
+
+        .chevron.rotated {
+            transform: rotate(180deg);
+        }
+
+        .menu-items {
+            max-height: 2000px;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+        }
+
+        .menu-items.collapsed {
+            max-height: 0;
+        }
+
+        .menu-item {
+            padding: 20px;
+            border-bottom: 1px solid #f0f0f0;
+            animation: fadeIn 0.4s ease forwards;
+            opacity: 0;
+        }
+
+        .menu-item:last-child {
+            border-bottom: none;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 8px;
+            gap: 20px;
+        }
+
+        .item-name {
+            font-weight: 700;
+            font-size: 16px;
+            color: #2d2d2d;
+            flex-grow: 1;
+            letter-spacing: 0.5px;
+        }
+
+        .item-price {
+            font-weight: 700;
+            color: #FF6B35;
+            font-size: 18px;
+            white-space: nowrap;
+        }
+
+        .item-desc {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.5;
+            font-weight: 400;
+        }
+
+        .contact-section {
+            background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
+            padding: 50px 20px;
+            text-align: center;
+        }
+
+        .contact-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 36px;
+            color: white;
+            margin-bottom: 30px;
+            letter-spacing: 1px;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+
+        .contact-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 600;
+            padding: 12px 20px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+
+        .contact-link:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-2px);
+        }
+
+        .footer {
+            background: #2d2d2d;
+            color: white;
+            text-align: center;
+            padding: 30px;
+            font-size: 14px;
+        }
+
+        @media (max-width: 600px) {
+            .hero-title {
+                font-size: 36px;
+            }
+
+            .section-title {
+                font-size: 20px;
+            }
+
+            .contact-links {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .contact-link {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <div class="tagline">Welcome to</div>
+            <h1 class="hero-title">ROUDZ BURGER</h1>
+            <p class="hero-subtitle">SMASH & WRAP</p>
+            <p class="tagline">Freshly Made • Deliciously Bold</p>
+        </div>
+    </section>
+
+    <!-- Menu -->
+    <div class="menu-container" id="menuContainer"></div>
+
+    <!-- Contact Section -->
+    <section class="contact-section">
+        <h2 class="contact-title">Get In Touch</h2>
+        <div class="contact-links">
+            <a href="https://wa.me/81742083" class="contact-link" target="_blank" rel="noopener noreferrer">
+                💬 WhatsApp: +81 742 083
+            </a>
+            <a href="https://instagram.com/Roudz.smashnwrap" class="contact-link" target="_blank" rel="noopener noreferrer">
+                📷 @Roudz.smashnwrap
+            </a>
+            <a href="https://tiktok.com/@Roudz.smashnwrap" class="contact-link" target="_blank" rel="noopener noreferrer">
+                🎬 TikTok: Roudz.smashnwrap
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2024 Roudz Burger. All rights reserved. | Made with ❤️</p>
+    </footer>
+
+    <script>
+        const menuData = {
+            appetizers: {
+                name: 'APPETIZERS',
+                items: [
+                    { name: 'FRENCH FRIES', price: '$3.00-$4.00', desc: 'Medium or Large' },
+                    { name: 'MOZZARELLA STICKS', price: '$5.00', desc: '' },
+                    { name: 'CHEDDAR STICKS', price: '$5.00', desc: '' },
+                    { name: 'JALAPENO BITES', price: '$5.00', desc: '' },
+                    { name: 'POTATO WEDGES', price: '$3.50', desc: '' },
+                    { name: 'CURLY FRIES', price: '$5.00', desc: '' },
+                    { name: 'CHICKEN STRIPS', price: '$5.00', desc: '' },
+                    { name: 'ROUDZ COMBO', price: '$13.00', desc: 'Curly fries, fries, 3 jalapeno bites, 3 mozzarella sticks, 3 cheddar sticks, 3 chicken strips.' },
+                    { name: 'LOADED FRIES - CRISPY CHICKEN STRIPS', price: '$6.50', desc: '' },
+                    { name: 'LOADED FRIES - SMASHED MEAT PATTY', price: '$6.50', desc: '' },
+                ]
+            },
+            wraps: {
+                name: 'WRAPS',
+                items: [
+                    { name: 'CHICKEN WRAP', price: '$6.00', desc: 'Crispy fried chicken strips, iceberg, dill pickles, crispy chips with barbecue and cheddar cheese.' },
+                    { name: 'BEEF WRAP', price: '$5.50', desc: 'Two smashed beef patties, iceberg, dill pickles, crispy chips with barbecue and cheddar cheese.' },
+                    { name: 'SWISS MUSHROOM WRAP', price: '$7.50', desc: 'Two beef patties, iceberg, dill pickles, fresh mushrooms, emmental cheese, caramelized onions with mayo and mushroom sauce.' },
+                    { name: 'FRIES WRAP', price: '$3.50', desc: 'Crispy French fries, dill pickles, crispy chips, iceberg with mayo, ketchup.' },
+                ]
+            },
+            burgers: {
+                name: 'BURGERS',
+                subtitle: 'Made with potato bun',
+                items: [
+                    { name: 'CLASSIC BURGER', price: '$5.50', desc: 'Two beef patties, iceberg, dill pickles, chips sticks with special sauce.' },
+                    { name: 'CHEESE BURGER', price: '$6.00', desc: 'Two beef patties, two slices of cheddar cheese, iceberg, dill pickles, chips sticks with special sauce.' },
+                    { name: 'CHICKEN BURGER', price: '$5.50', desc: 'Crispy fried chicken, iceberg, dill pickles, crispy onions with your choice of barbecue or honey mustard sauce.' },
+                    { name: 'CHICKEN CHEESY BURGER', price: '$6.50', desc: 'Crispy fried chicken, cheddar cheese, iceberg, dill pickles, jalapenos, crispy chips.' },
+                    { name: 'CHEESE ON CHEESE', price: '$5.00', desc: 'One mozzarella patty and cheddar sticks, dill pickles, iceberg, crispy onions, crispy chips with special sauce, honey mustard and barbecue.' },
+                    { name: 'BEEF MOZZARELLA BURGER', price: '$7.00', desc: 'Two beef patties, mozzarella patty, iceberg, dill pickles, chips sticks with special sauce.' },
+                    { name: 'CHICKEN MOZZARELLA BURGER', price: '$7.00', desc: 'Crispy fried chicken, mozzarella patty, iceberg, dill pickles, crispy chips with your choice of barbecue or honey mustard sauce.' },
+                    { name: 'SWISS MUSHROOM BURGER', price: '$7.50', desc: 'Two beef patties, iceberg, dill pickles, fresh mushrooms, emmental cheese, caramelized onions with mayo and mushroom sauce.' },
+                ]
+            },
+            drinks: {
+                name: 'DRINKS',
+                items: [
+                    { name: 'SOFT DRINKS', price: '$1.00', desc: '' },
+                    { name: 'ICE TEA', price: '$1.20', desc: '' },
+                    { name: 'WATER', price: '$0.50', desc: '' },
+                ]
+            },
+            addons: {
+                name: 'ADD-ONS',
+                items: [
+                    { name: 'BEEF PATTY', price: '$1.50', desc: '' },
+                    { name: 'CRISPY FRIED CHICKEN', price: '$2.50', desc: '' },
+                    { name: 'JALAPENO BITE', price: '$1.00', desc: '' },
+                    { name: 'MOZZARELLA PATTY', price: '$1.50', desc: '' },
+                    { name: 'SAUCE', price: '$0.50', desc: '' },
+                    { name: 'MAKE IT COMBO', price: '$3.00', desc: '' },
+                ]
+            }
+        };
+
+        let expandedCategory = null;
+
+        function renderMenu() {
+            const container = document.getElementById('menuContainer');
+            container.innerHTML = '';
+
+            Object.entries(menuData).forEach(([key, category]) => {
+                const section = document.createElement('div');
+                section.className = 'menu-section';
+
+                const header = document.createElement('div');
+                header.className = 'section-header';
+                header.onclick = () => toggleCategory(key);
+
+                const titleDiv = document.createElement('div');
+                const title = document.createElement('div');
+                title.className = 'section-title';
+                title.textContent = category.name;
+                titleDiv.appendChild(title);
+
+                if (category.subtitle) {
+                    const subtitle = document.createElement('div');
+                    subtitle.className = 'section-subtitle';
+                    subtitle.textContent = category.subtitle;
+                    titleDiv.appendChild(subtitle);
+                }
+
+                const chevron = document.createElement('div');
+                chevron.className = 'chevron';
+                chevron.textContent = '▼';
+                chevron.id = `chevron-${key}`;
+
+                header.appendChild(titleDiv);
+                header.appendChild(chevron);
+
+                const itemsDiv = document.createElement('div');
+                itemsDiv.className = `menu-items ${expandedCategory !== key ? 'collapsed' : ''}`;
+                itemsDiv.id = `items-${key}`;
+
+                category.items.forEach((item, idx) => {
+                    const itemDiv = document.createElement('div');
+                    itemDiv.className = 'menu-item';
+                    itemDiv.style.animationDelay = `${idx * 0.05}s`;
+
+                    const headerDiv = document.createElement('div');
+                    headerDiv.className = 'item-header';
+
+                    const nameSpan = document.createElement('span');
+                    nameSpan.className = 'item-name';
+                    nameSpan.textContent = item.name;
+
+                    const priceSpan = document.createElement('span');
+                    priceSpan.className = 'item-price';
+                    priceSpan.textContent = item.price;
+
+                    headerDiv.appendChild(nameSpan);
+                    headerDiv.appendChild(priceSpan);
+
+                    itemDiv.appendChild(headerDiv);
+
+                    if (item.desc) {
+                        const descDiv = document.createElement('div');
+                        descDiv.className = 'item-desc';
+                        descDiv.textContent = item.desc;
+                        itemDiv.appendChild(descDiv);
+                    }
+
+                    itemsDiv.appendChild(itemDiv);
+                });
+
+                section.appendChild(header);
+                section.appendChild(itemsDiv);
+                container.appendChild(section);
+            });
+        }
+
+        function toggleCategory(category) {
+            const itemsDiv = document.getElementById(`items-${category}`);
+            const chevron = document.getElementById(`chevron-${category}`);
+
+            if (expandedCategory === category) {
+                expandedCategory = null;
+                itemsDiv.classList.add('collapsed');
+                chevron.classList.remove('rotated');
+            } else {
+                expandedCategory = category;
+                itemsDiv.classList.remove('collapsed');
+                chevron.classList.add('rotated');
+            }
+        }
+
+        // Initial render
+        renderMenu();
+    </script>
+</body>
+</html>
